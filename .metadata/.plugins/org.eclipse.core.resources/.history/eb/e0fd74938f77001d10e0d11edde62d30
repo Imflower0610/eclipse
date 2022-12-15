@@ -1,0 +1,5 @@
+package com.dw.emp.VO;
+
+public class BoardVO {
+
+}

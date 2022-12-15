@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사원 목록 페이지</title>
+<style type="text/css">
+body {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: lightgrey;
+}
+
+tr:hover {
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<!-- 사원추가 -->
+	<input id="i_empno" type="text" placeholder="EMPNO">
+	<input id="i_ename" type="text" placeholder="ENAME">
+	<input id="i_job" type="text" placeholder="JOB">
+	<input id="i_hiredate" type="text" placeholder="HIREDATE">
+	<input id="i_sal" type="text" placeholder="SAL">
+	<input id="i_dname" type="text" placeholder="DNAME">
+	<input id="i_loc" type="text" placeholder="LOC">
+	<button onclick="doInsert()" type="button">사원추가</button>
+
+	<!-- 사원삭제 -->
+	<input id="d_empno" type="text" placeholder="EMPNO">
+	<button onclick="doDelete()" type="button">사원삭제</button>
+
+	<!-- 사원수정 -->
+	<input id="i_empno" type="text" placeholder="EMPNO">
+	<input id="i_ename" type="text" placeholder="ENAME">
+	<input id="i_job" type="text" placeholder="JOB">
+	<input id="i_sal" type="text" placeholder="SAL">
+	<button onclick="doUpdate()" type="button">사원수정</button>
+
+	<!-- 사원상세정보 -->
+	<h3>사원 정보</h3>
+	<input id="ename" type="text" disabled="disabled" placeholder="사원이름">
+	<input id="comm" type="text" disabled="disabled" placeholder="사원급여">
+	<input id="sal" type="text" disabled="disabled" placeholder="사원보너스">
+	<!-- 사원목록 구현하기 -->
+	<h3>사원목록</h3>
+	<div id="data"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function doSubmit() {
+		//AJAX 호출
+		$
+				.ajax({
+					url : '/api/v1/emp',
+					contentType : 'application/json',//서버에 json타입으로 보낼 예정(요청)
+					type : 'GET',
+					dataType : 'json',
+					success : function(response) {
+						console.log(response)
+						var table = "<table align = center><th>EMPNO</th><th>ENAME</th><th>JOB</th><th>HIREDATE</th><th>SAL</th><th>DNAME</th><th>LOC</th> ";
+						for ( var i in response) {
+							table += "<tr onclick = 'getEmp("
+									+ response[i].empno + ")' ><td>"
+									+ response[i].empno + "</td><td>"
+									+ response[i].ename + "</td><td>"
+									+ response[i].job + "</td><td>"
+									+ response[i].hiredate + "</td><td>"
+									+ response[i].sal + "</td><td>"
+									+ response[i].dname + "</td><td>"
+									+ response[i].loc + "</td></tr>"
+						}
+						;
+						table += "</table>"
+						$("#data").append(table);
+					}
+				})
+	}
+	doSubmit()
+	function getEmp(empno) {
+		$.ajax({
+			url : '/api/v1/emp/' + empno,
+			contentType : 'application/json',//서버에 json타입으로 보낼 예정(요청)
+			type : 'GET',
+			dataType : 'json',
+			success : function(response) {
+				$("#ename").val(response.ename)
+				$("#comm").val(response.comm)
+				$("#sal").val(response.sal)
+			}
+		})
+	}
+</script>
+</html>

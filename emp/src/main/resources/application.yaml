@@ -1,0 +1,9 @@
+# 데이터베이스 설정 yaml이 좀더 편리
+spring :
+  datasource:
+    dirver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dw_501
+    username: root
+    password: Wkwmdsk18!
+mybatis:
+  mapper-locations : classpath:/sqlmap/sql_*.xml

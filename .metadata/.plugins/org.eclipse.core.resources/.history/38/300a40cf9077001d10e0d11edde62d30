@@ -1,0 +1,5 @@
+package com.dw.emp.service;
+
+public class BoardService {
+
+}

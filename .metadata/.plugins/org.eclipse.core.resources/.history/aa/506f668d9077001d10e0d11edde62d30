@@ -1,0 +1,5 @@
+package com.dw.emp.controller;
+
+public class BoardApiController {
+
+}

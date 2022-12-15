@@ -1,0 +1,32 @@
+package com.dw.member.model;
+
+import javax.persistence.Table;
+
+// vo기능 + 테이블 생성
+// 테이블이름은 소문자로
+@Table(name ="member")
+public class Member {
+	private long id;
+	private String name;
+	private int age;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	
+	
+}

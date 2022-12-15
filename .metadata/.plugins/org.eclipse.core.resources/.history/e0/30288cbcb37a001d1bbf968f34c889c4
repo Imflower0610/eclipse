@@ -1,0 +1,5 @@
+package com.dw.member.repository;
+
+public interface MemberRepo {
+
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+body {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: pink;
+}
+</style>
+</head>
+<body>
+	<h3>❤🧡💛💚💙💜🤎🖤🤍💗💖💘마이페이지❤🧡💛💚💙💜🤎🖤🤍💗💖💘</h3>
+	<h4 th:text = "${name} + '님 환영합니다!'"> </h4>
+	<h3>사용자 정보 삭제</h3>
+	<input id="userId" type="text" placeholder="아이디를 입력해주세요">
+	<button type="button" onclick="usersDelete()">회원정보 삭제</button>
+
+	<h3>사용자 정보 수정</h3>
+	<input id="u_userId" type="text" placeholder="아이디를 입력해주세요">
+	<input id="u_userName" type="text" placeholder="이름을 입력해주세요">
+	<input id="u_userPw" type="password" placeholder="비밀번호를 입력해주세요">
+	<button type="button" onclick="usersUpdate()">회원정보수정</button>
+
+	<div id="data"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function doSubmit() {
+		//AJAX 호출
+		$.ajax({
+					url : '/api/v1/users',
+					contentType : 'application/json',//서버에 json타입으로 보낼 예정(요청)
+					type : 'GET',
+					dataType : 'json',
+					success : function(response) {
+						console.log(response)
+						var table = "<table align = center><th>유저아이디</th><th>비밀번호</th><th>유저이름</th> ";
+						for ( var i in response) {
+							table += "<tr><td>" + response[i].id + "</td><td>"
+									+ response[i].pw + "</td><td>"
+									+ response[i].name + "</td></tr>"
+						}
+						;
+						table += "</table>"
+						$("#data").append(table);
+					}
+				})
+	
+	}
+	doSubmit();
+	function usersDelete() {
+		//사원번호입력이 1~9999 넘으면 "잘못된 사원번호 입니다" alert
+		var id = $("#userId").val();
+		if (id == "") {
+			alert("아이디를 입력해주세요💢💢💢💢")
+			$("#userId").focus();
+			return false;
+		}
+		//사원삭제
+		$.ajax({
+			url : "/api/v1/users/" + id,
+			type : 'DELETE',
+			dataType : 'json',
+			success : function(response) {
+				console.log(response)
+				alert("💔삭제완료💔")
+				location.reload();//강제새로고침
+			}
+		});
+	}
+	function usersUpdate(){
+		var id = $("#u_userId").val();
+		var pw = $("#u_userPw").val();
+		var name = $("#u_userName").val();
+		
+		var jsonData = {
+				"id" : id,
+				"pw" : pw,
+				"name" : name,
+			};
+		$.ajax({
+			url : '/api/v1/users/usersjoin',
+			type : 'PATCH',
+			contentType : 'application/json',//서버에 json타입으로 보낼 예정(요청)
+			data : JSON.stringify(jsonData),
+			dataType : 'json',
+			success : function(response) {
+				console.log(response);
+				alert("수정완료");
+				location.reload();//강제새로고침
+			}
+		});
+	}
+</script>
+</html>

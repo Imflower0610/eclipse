@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+wrap {
+	width: 1000px;
+}
+
+table {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+table th {
+	height: 30px;
+	background-color: gray;
+	color: white;
+}
+
+table tr td {
+	height: 30px;
+	background-color: lightgray;
+}
+
+button {
+	width: 130px;
+	height: 40px;
+	font: bold 15px "굴림", Gulim;
+	color: white;
+	border-radius: 10px;
+	border: 3px solid rgb(76, 120, 238);
+	background-color: rgb(89, 144, 247);
+	margin: 5px;
+	margin-right: -860px;
+}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<h1>DW 게시판</h1>
+		<button onclick="resisterDoc()">게시물 작성</button>
+	</div>
+	<div id="data"></div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function doSubmit() {
+		//AJAX 호출
+		$.ajax({
+					url : '/api/v1/board',
+					contentType : 'application/json',//서버에 json타입으로 보낼 예정(요청)
+					type : 'GET',
+					dataType : 'json',
+					success : function(response) {
+						console.log(response)
+						var table = "<table><th>게시판 번호</th><th>게시판 제목</th><th>작성자</th><th>작성날짜</th><th>조회수</th> ";
+						for ( var i in response) {
+							table += "<tr><td>" + response[i].board_no
+									+ '</td><td onclick ="detailBoard('
+									+ response[i].board_no + ')"><a href="#">'
+									+ response[i].title + "</a></td><td>"
+									+ response[i].writer + "</td><td>"
+									+ response[i].create_at + "</td><td>"
+									+ response[i].board_count + "</td></tr>"
+						}
+						;
+						table += "</table>"
+						$("#data").append(table);
+					}
+				})
+	}
+	doSubmit()
+	function resisterDoc() {
+		location.href = "/write";
+	}
+	function detailBoard(boardNo) {//게시물 상세화면으로 이동
+		console.log(boardNo);
+		location.href = '/board/' + boardNo; // 게시판 pk url(controller)에 전달
+
+	}
+</script>
+</html>

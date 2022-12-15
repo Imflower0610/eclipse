@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css" />
+<title>게시판 만들기</title>
+</head>
+<body>
+	<div class="container">
+		<div class="section-input">
+			<div class="card-header">
+				<h6>게시물 보기</h6>
+			</div>
+			<div class="input-wrapper">
+				<!-- 게시판번호를 히든으로 숨김-->
+				<input id="boardNo" type="hidden" th:value="${boardNo}"> <input
+					id="title" type="text" placeholder="제목 입력..." /> <input
+					id="writer" type="text" placeholder="작성자 입력..." />
+				<textarea id="content" name="content" rows="40"></textarea>
+				<button onclick="doUpdate()">수정하기</button>
+				<button onclick="doDelete()">삭제하기</button>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="//cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+getBoard()
+	var editor = CKEDITOR.replace('content', {});
+
+	function doDelete() {
+		var writer = $("#writer").val();
+		if (writer == "") {
+			alert("작성자 이름을 입력해주세요")
+			$("#writer").focus();
+			return false;
+		}
+		//사원삭제
+		$.ajax({
+			url : "/api/v1/board/" + writer,
+			type : 'DELETE',
+			dataType : 'json',
+			success : function(response) {
+				console.log(response)
+				alert("게시물삭제완료")
+				location.reload();//강제새로고침
+			}
+		});
+	}
+	
+	function doUpdate() { 
+		var title = $("#title").val();
+		var writer = $("#writer").val();
+		var contents = editor.getData();
+		var jsonData = {
+			"title" : title,
+			"writer" : writer,
+			"contents" : contents
+		}
+
+		$.ajax({
+			url : '/api/v1/board/',
+			type : 'PATCH',
+			contentType : 'application/json',//서버에 json타입으로 보낼 예정(요청)
+			data : JSON.stringify(jsonData),
+			dataType : 'json',
+			success : function(response) {
+				console.log(response);
+				alert("게시물 수정완료");
+				location.reload();//강제새로고침
+			}
+		});
+	}
+	function getBoard(){
+		var boardNo = $("#boardNo").val();
+		$.ajax({
+			url : '/api/v1/board/'+ boardNo,
+			type : 'GET',
+			dataType : 'json',
+			success : function(response) {
+				$("#title").val(response.title);
+				$("#writer").val(response.writer);
+				editor.setData(response.contents);
+				}
+			})
+	}
+</script>
+</html>

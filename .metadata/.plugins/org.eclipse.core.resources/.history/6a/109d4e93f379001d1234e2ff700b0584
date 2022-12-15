@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css" />
+<title>게시판 만들기</title>
+</head>
+<body>
+	<div class="container">
+		<div class="section-input">
+			<div class="card-header">
+				<h6>게시물 보기</h6>
+			</div>
+			<div class="input-wrapper">
+				<!-- 게시판번호를 히든으로 숨김-->
+				<input id="boardNo" type="hidden" th:value="${boardNo}"> <input
+					id="title" type="text" placeholder="제목 입력..." /> <input
+					id="writer" type="text" placeholder="작성자 입력..." />
+				<textarea id="content" name="content" rows="40"></textarea>
+				<button onclick="doWrite()">수정하기</button>
+				<button onclick="goBack()">삭제하기</button>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="//cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	var editor = CKEDITOR.replace('content', {});
+
+	function doDelete() {
+	}
+	function doUppdate() { // 뒤로가기 함수
+		location.href = "/board"; //게시물 주소
+	}
+</script>
+</html>

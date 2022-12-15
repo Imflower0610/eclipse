@@ -1,0 +1,11 @@
+package com.dw.emp.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
+public class BoardController {
+
+	@GetMapping("/board")
+	public String calldwpage() {
+		return "board";
+	}
+}

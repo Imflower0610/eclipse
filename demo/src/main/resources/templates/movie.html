@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: 0.3s;
+  background-color: black;
+  font-family: 'Open Sans', sans-serif;
+}
+h2{
+ text-align : center;
+color :red;}
+#wrap{
+ width:100%;
+ display: flex;
+ text-align : center;
+ justify-content: space-between;
+}
+ 
+div{
+ width:33%;
+ height:200px;
+ color :white;
+}
+img{width:100px;}
+</style>
+
+</head>
+<body>
+<h2>안녕하세요 여기는 MOVIE 화면 입니다.</h2>
+<div id="wrap">
+<div id="data0" >
+ <img src="/image/friends.jpg"><br>
+</div>
+<div id="data1" >
+<img src="/image/Nope.jpg"><br>
+</div>
+<div id="data2" >
+ <img src="/image/toy.jpg"><br>
+</div>
+</div>
+</body>
+<script
+    src="https://code.jquery.com/jquery-3.6.1.js"
+    integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"
+  ></script>
+  <script type="text/javascript">
+  callMyAPI();
+	//ajax는 백엔드 프론트엔드 연결해줌(통신기능)
+	//type : GET == Controller에 GetMapping
+	//dataType : return 데이터를 json으로 받음.
+  function callMyAPI(){
+	      $.ajax({
+	        url : '/api/v1/movies',
+	        type : 'GET',
+	        dataType: 'json',
+	        success: function (response) {
+	            console.log(response);
+	            for(var i in response){
+	 
+	            	$('#data'+i).append(response[i].title+"<br>");
+	            	$('#data'+i).append(response[i].year+"<br>");
+	            	$('#data'+i).append(response[i].runtime+"<br>");
+	            	$('#data'+i).append(response[i].genre+"<br>");
+	            }
+	            
+	           
+	          }
+	      });
+  }
+  
+  </script>
+</html>

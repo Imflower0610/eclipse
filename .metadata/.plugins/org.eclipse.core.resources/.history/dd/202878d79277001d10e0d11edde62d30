@@ -1,0 +1,21 @@
+package com.dw.emp.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.dw.emp.VO.BoardVO;
+import com.dw.emp.service.BoardService;
+
+
+
+public class BoardApiController {
+	@Autowired
+	BoardService boardService;
+	
+	@GetMapping("/api/v1/emp")
+	public List<BoardVO> callBoard() {
+		return boardService.selectBoard();
+	}
+}

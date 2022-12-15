@@ -1,0 +1,9 @@
+package com.dw.emp.VO;
+
+public class BoardVO {
+	public int board_no;
+	public String title;
+	public String writer;
+	public String create_at;
+	public int board_count;
+}

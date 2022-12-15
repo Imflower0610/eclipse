@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+table {
+	width: 80rem;
+	margin: 0 auto;
+}
+
+table th {
+	height: 30px;
+	background-color: gray;
+	color: white;
+}
+
+table tr td {
+	height: 30px;
+	background-color: lightgray;
+}
+
+button {
+	width: 130px;
+	height: 40px;
+	font: bold 15px "굴림", Gulim;
+	color: white;
+	float: right;
+	border-radius: 10px;
+	border: 3px solid rgb(76, 120, 238);
+	background-color: rgb(89, 144, 247);
+	margin: 5px;
+}
+</style>
+</head>
+<body>
+	<div id="wrap">
+		<h1>DW 게시판</h1>
+		<button>게시물 작성</button>
+	</div>
+	<table>
+		<tr>
+			<th>게시판 번호</th>
+			<th>게시판 제목</th>
+			<th>작성자</th>
+			<th>작성날짜</th>
+			<th>조회수</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><a>네이마르 부상..?</a></td>
+			<td>홍길동</td>
+			<td>2022-12-09</td>
+			<td>0</td>
+		</tr>
+	</table>
+	
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript"></script>
+</html>

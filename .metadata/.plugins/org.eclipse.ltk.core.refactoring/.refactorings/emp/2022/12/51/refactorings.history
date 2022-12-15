@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;write.html&apos; to &apos;emp/src/main/resources/templates&apos;&#x0D;&#x0A;- Original project: &apos;emp&apos;&#x0D;&#x0A;- Destination element: &apos;emp/src/main/resources/templates&apos;&#x0D;&#x0A;- Original element: &apos;write.html&apos;" description="Copy file" destination="/src\/main\/resources=/gradle_scope=/main=/=/gradle_used_by_scope=/main,test=/&lt;templates" element1="src/main/resources/templates/write.html" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1670828107604" units="0" version="1.0"/>
+</session>
